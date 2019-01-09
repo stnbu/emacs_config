@@ -21,7 +21,9 @@
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
  '(fill-column 80)
- '(package-selected-packages (quote (php-mode rust-mode magit markdown-mode)))
+ '(package-selected-packages
+   (quote
+	(go-mode company-lsp php-mode rust-mode magit markdown-mode)))
  '(tab-width 4)
  '(visible-bell 1))
 (custom-set-faces
@@ -30,6 +32,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(require 'company-lsp)
+(push 'company-lsp company-backends)
 
 
 ;; TODO
