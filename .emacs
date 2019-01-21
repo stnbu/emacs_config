@@ -8,6 +8,9 @@
 
 (package-initialize)
 
+(setq server-port 12345)
+(setq server-host "0.0.0.0")
+
 (server-start)
 
 (put 'upcase-region 'disabled nil)
