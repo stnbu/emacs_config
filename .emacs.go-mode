@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (go-scratch go-playground gotest go-dlv atom-one-dark-theme flymake-go go-autocomplete auto-complete exec-path-from-shell neotree go-mode))))
+    (php-mode magit go-scratch go-playground gotest go-dlv atom-one-dark-theme flymake-go go-autocomplete auto-complete exec-path-from-shell neotree go-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -97,3 +97,8 @@
 
 ;; If the go-guru.el file is in the load path, this will load it.
 (require 'go-guru)
+
+
+;;;; halp. I can't get zsh to work.
+;; (setq tramp-shell-prompt-pattern "\\(?:^\\|\r\\)[^]#$%>\n]*#?[]#$%>] *\\(^[\\[[0-9;]*[a-zA-Z] *\\)*")
+(put 'upcase-region 'disabled nil)

@@ -124,7 +124,7 @@ export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 alias ec=emacsclient
 . ~/virtualenv/bin/activate
 #. $HOME/.cargo/env
-PATH=~/bin:"$PATH"
+#PATH=~/bin:"$PATH"
 export RUSTFLAGS="$RUSTFLAGS -A dead_code -A unreachable_code"
 . /usr/local/etc/bash_completion
 
