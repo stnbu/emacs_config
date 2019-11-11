@@ -124,7 +124,7 @@ export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 alias ec=emacsclient
 . ~/virtualenv/bin/activate
 #. $HOME/.cargo/env
-#PATH=~/bin:"$PATH"
+PATH=~/bin:"$PATH"
 export RUSTFLAGS="$RUSTFLAGS -A dead_code -A unreachable_code"
 . /usr/local/etc/bash_completion
 
@@ -133,3 +133,9 @@ if [ -z "$SSH_AUTH_SOCK" ] ; then
     eval `ssh-agent`
     ssh-add
 fi
+PATH=~/go/bin:"$PATH"
+export VISUAL=emacs
+export EDITOR="$VISUAL"
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+export GOFLAGS="-mod=readonly"
