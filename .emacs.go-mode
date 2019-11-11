@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (php-mode magit go-scratch go-playground gotest go-dlv atom-one-dark-theme flymake-go go-autocomplete auto-complete exec-path-from-shell neotree go-mode))))
+    (dap-mode php-mode magit go-scratch go-playground gotest go-dlv atom-one-dark-theme flymake-go go-autocomplete auto-complete exec-path-from-shell neotree go-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -24,6 +24,8 @@
 ;; go get -u golang.org/x/tools/cmd/guru
 ;; go get -u github.com/dougm/goflymake
 ;;;;;;;;;;;;;; End notes
+
+(global-set-key (kbd "C-c m") 'magit-status)
 
 ;;;;;;;;;;;;;; Start Mikes Messy Stuff
 (when (version<= "26.0.50" emacs-version )
@@ -84,6 +86,7 @@
   (local-set-key (kbd "M-P") 'recompile)          ; Redo most recent compile cmd
   (local-set-key (kbd "M-]") 'next-error)         ; Go to next error (or msg)
   (local-set-key (kbd "M-[") 'previous-error)     ; Go to previous error or msg
+
 
   ;; Misc go stuff
   (auto-complete-mode 1))                         ; Enable auto-complete mode
