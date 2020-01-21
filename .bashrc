@@ -122,7 +122,7 @@ export HISTFILESIZE="nnnnnn..."
 shopt -s histappend
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 alias ec=emacsclient
-. ~/virtualenv/bin/activate
+. ~/virtualenv3.8/bin/activate
 #. $HOME/.cargo/env
 PATH=~/bin:"$PATH"
 export RUSTFLAGS="$RUSTFLAGS -A dead_code -A unreachable_code"
@@ -139,3 +139,4 @@ export EDITOR="$VISUAL"
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 export GOFLAGS="-mod=readonly"
+export NODE_PATH=/usr/local/lib/node_modules

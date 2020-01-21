@@ -1,3 +1,5 @@
+; -*- mode: Lisp;-*-
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -5,7 +7,8 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (company-php dap-mode php-mode magit go-scratch go-playground gotest go-dlv atom-one-dark-theme flymake-go go-autocomplete auto-complete exec-path-from-shell neotree go-mode))))
+    (js2-mode company-tern company-php dap-mode php-mode magit go-scratch go-playground gotest go-dlv atom-one-dark-theme flymake-go go-autocomplete auto-complete exec-path-from-shell neotree go-mode)))
+ '(require-final-newline t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -44,6 +47,7 @@
 (setq tab-width 2)                  ; Four spaces is a tab
 (setq visible-bell nil)             ; Disable annoying visual bell graphic
 (setq ring-bell-function 'ignore)   ; Disable super annoying audio bell
+(setq-default require-final-newline nil)
 
 ;; Make keyboard bindings not suck
 ;;(setq mac-option-modifier 'super)
@@ -117,3 +121,10 @@
 ;;   (setq gofmt-command "goimports")  ; Use goimports instead of go-fmt
 ;;   (add-hook 'before-save-hook 'gofmt-before-save))
 ;; (add-hook 'go-mode-hook 'my-go-mode-hook)
+(put 'narrow-to-region 'disabled nil)
+
+;; (setq js2-basic-offset 2)
+;; (setq indent-tabs-mode t)
+;; (setq-default indent-tabs-mode t)
+
+(setq column-number-mode t)

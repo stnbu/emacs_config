@@ -26,7 +26,8 @@
  '(fill-column 80)
  '(package-selected-packages
    (quote
-	(go-mode company-lsp php-mode rust-mode magit markdown-mode)))
+	;;(go-mode company-lsp php-mode rust-mode magit markdown-mode)))
+	(go-mode php-mode rust-mode magit markdown-mode)))
  '(tab-width 4)
  '(visible-bell 1))
 (custom-set-faces
@@ -36,8 +37,8 @@
  ;; If there is more than one, they won't work right.
  )
 
-(require 'company-lsp)
-(push 'company-lsp company-backends)
+;; (require 'company-lsp)
+;; (push 'company-lsp company-backends)
 
 
 ;; TODO
