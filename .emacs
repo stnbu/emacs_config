@@ -1,15 +1,43 @@
 ; -*- mode: Lisp;-*-
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (js2-mode company-tern company-php dap-mode php-mode magit go-scratch go-playground gotest go-dlv atom-one-dark-theme flymake-go go-autocomplete auto-complete exec-path-from-shell neotree go-mode))))
-
 ;; BEGIN GLOBAL-STUFF
+
+;; begin package-stuff
+
+(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+
+(package-initialize)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(eval-when-compile
+  (require 'use-package))
+
+(setq use-package-always-ensure t)
+
+(use-package js2-mode)
+(use-package company-tern)
+(use-package company-php)
+(use-package dap-mode)
+(use-package php-mode)
+(use-package magit)
+(use-package go-scratch)
+(use-package go-playground)
+(use-package gotest)
+(use-package go-dlv)
+(use-package atom-one-dark-theme)
+(use-package flymake-go)
+(use-package go-autocomplete)
+(use-package auto-complete)
+(use-package exec-path-from-shell)
+(use-package neotree)
+(use-package go-mode)
+
+;; end package-stuff
 
 (when (version<= "26.0.50" emacs-version )
   (global-display-line-numbers-mode))
@@ -82,7 +110,7 @@
    (require 'go-autocomplete))
 
 ;; If the go-guru.el file is in the load path, this will load it.
-(require 'go-guru)
+;;(require 'go-guru)
 
 ;; END GOLANG-STUFF
 
