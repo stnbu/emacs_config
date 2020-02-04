@@ -1,5 +1,10 @@
 ; -*- mode: Lisp;-*-
 
+;; Notes...
+
+
+;; Meta Keys. It should just be your ALT key, but if not: https://www.emacswiki.org/emacs/MetaKeyProblems
+
 ;; BEGIN GLOBAL-STUFF
 
 ;; begin package-stuff
@@ -19,23 +24,25 @@
 
 (setq use-package-always-ensure t)
 
-(use-package js2-mode)
-(use-package company-tern)
-(use-package company-php)
-(use-package dap-mode)
-(use-package php-mode)
-(use-package magit)
-(use-package go-scratch)
-(use-package go-playground)
-(use-package gotest)
-(use-package go-dlv)
 (use-package atom-one-dark-theme)
+(use-package auto-complete)
+(use-package company-php)
+(use-package company-tern)
+(use-package dap-mode)
+(use-package exec-path-from-shell)
 (use-package flymake-go)
 (use-package go-autocomplete)
-(use-package auto-complete)
-(use-package exec-path-from-shell)
-(use-package neotree)
+(use-package go-dlv)
 (use-package go-mode)
+(use-package go-playground)
+(use-package go-scratch)
+(use-package gotest)
+(use-package js2-mode)
+(use-package js2-refactor)
+(use-package magit)
+(use-package neotree)
+(use-package php-mode)
+(use-package xref-js2)
 
 ;; end package-stuff
 
@@ -72,6 +79,11 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
 ;; END GLOBAL-STUFF
+
+;; BEGIN JS2-STUFF
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
+;; END JS2-STUFF
 
 ;; BEGIN GOLANG-STUFF
 
