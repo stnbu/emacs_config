@@ -1,9 +1,43 @@
 ; -*- mode: Lisp;-*-
 
-;; Notes...
-
-
-;; Meta Keys. It should just be your ALT key, but if not: https://www.emacswiki.org/emacs/MetaKeyProblems
+;; Intructions
+;;   1) Put this file at ~/.emacs
+;;   2) Download and run the below "Mac for OSX" binary
+;; Meta Keys: It should just be your ALT key, but if not: https://www.emacswiki.org/emacs/MetaKeyProblems
+;; Mac (Mojave) binary used with this .emacs file
+;;   https://emacsformacosx.com/emacs-builds/Emacs-26.3-universal.dmg
+;; How to decipher eLisp
+;;   https://github.com/alhassy/ElispCheatSheet/blob/master/CheatSheet.pdf
+;; Key bindings
+;;   https://www.gnu.org/software/emacs/refcards/pdf/refcard.pdf
+;; Essential key chords (C means "ctrl", M means "alt" [meta], "point" just means "cursor", S means "command" [super])
+;;   M-x 		run a command, supports tab completion
+;;   C-space		Begin region selection (move point to see what's selected)
+;;   C-p|n|b|f		Point navigation: [p]revious line, [n]ext line, [b]ack, [f]orwards)
+;;   C-g		Like "esc". "undo! stop doing!"
+;;   C-x 1		Sow only "this 1" (the window with the 'point')
+;;   C-x 0		Show only the "0"ther window, the window without the 'point'. (It's a zero, but you get the idea)
+;;   C-k		[k]ill to end of line.
+;;   C-a		Move point to the beginning of current line [a of "a..z"]
+;;   C-e		Move point to [e]nd of line
+;;   C-x C-f		[f]ind file (open existing or create new)
+;;   C-x b		Switch to [b]uffer, supports tab-completion
+;;   C-/		Undo
+;;   M-;		Comment (e.g. selected region. because `;` is lisp comment)
+;;   M-.		Go to definition of word at point (the identifier under your cursor)
+;;   M-,		The opposite of go-to-definition. Go back to where you came from. Can do many levels deep.
+;;   S-u		Revert buffer (to what is on disk, disgard changes. [u]ndo everything.)
+;;   M-%		Find/replace (the `%` sign looks like "change o for o")
+;;   M-w		Copy region
+;;   C-w		Cut region
+;;   C-y		Paste region ([y]ank from buffer)
+;; Exsential commands
+;;   M-x rectangle-mark-mode		Select, interact with rectangle, e.g. when inserting, deleting the same line on each row.
+;;   M-x describe-*			The help system. `describe-` and then tab key to see what you can get help for.
+;;   M-x find-replace-regex		Just what it says
+;;   M-x package-*			Search for, install packages, etc.
+;; Credit for recent js2 additions
+;;   https://emacs.cafe/emacs/javascript/setup/2017/04/23/emacs-setup-javascript.html
 
 ;; BEGIN GLOBAL-STUFF
 
@@ -24,6 +58,7 @@
 
 (setq use-package-always-ensure t)
 
+;; It would be smarter to put package config inside of `(use-package ...)` But instead they're below in commented sections.
 (use-package atom-one-dark-theme)
 (use-package auto-complete)
 (use-package company-php)
@@ -33,6 +68,7 @@
 (use-package flymake-go)
 (use-package go-autocomplete)
 (use-package go-dlv)
+(use-package go-guru)
 (use-package go-mode)
 (use-package go-playground)
 (use-package go-scratch)
@@ -45,9 +81,6 @@
 (use-package xref-js2)
 
 ;; end package-stuff
-
-(when (version<= "26.0.50" emacs-version )
-  (global-display-line-numbers-mode))
 
 (server-start)
 (tool-bar-mode -1)                  ; Disable the button bar atop screen
@@ -69,20 +102,27 @@
 (put 'upcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 
-;; Set up package repositories so M-x package-install works.
-(require 'package) 
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/"))
-(package-initialize)
-
-;; Add a directory to the load path so we can put extra files there
+;; If you find useful *.el files you can just drop them in here
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
 ;; END GLOBAL-STUFF
 
 ;; BEGIN JS2-STUFF
+
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
+
+(add-hook 'js2-mode-hook #'js2-refactor-mode)
+(js2r-add-keybindings-with-prefix "C-c C-r")
+(define-key js2-mode-map (kbd "C-k") #'js2r-kill)
+
+;; js-mode (which js2 is based on) binds "M-." which conflicts with xref, so
+;; unbind it.
+(define-key js-mode-map (kbd "M-.") nil)
+
+(add-hook 'js2-mode-hook (lambda ()
+                           (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+
 ;; END JS2-STUFF
 
 ;; BEGIN GOLANG-STUFF
@@ -120,9 +160,6 @@
 ;; Ensure the go specific autocomplete is active in go-mode.
 (with-eval-after-load 'go-mode
    (require 'go-autocomplete))
-
-;; If the go-guru.el file is in the load path, this will load it.
-;;(require 'go-guru)
 
 ;; END GOLANG-STUFF
 
