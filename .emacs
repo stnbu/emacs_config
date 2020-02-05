@@ -1,7 +1,7 @@
 ; -*- mode: Lisp;-*-
 
 ;; Instructions
-;;   1) Save this file as ~/.emacs #
+;;   1) Save this file as ~/.emacs # rm -i ~/.emacs && curl -o ~/.emacs https://raw.githubusercontent.com/stnbu/emacs_config/master/.emacs
 ;;   2) Download and run the below "Mac for OSX" binary
 ;;
 ;; Meta Key: It should just be your "option" (or ALT) key, but if not: https://www.emacswiki.org/emacs/MetaKeyProblems
