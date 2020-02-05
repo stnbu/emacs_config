@@ -1,44 +1,64 @@
 ; -*- mode: Lisp;-*-
 
-;; Intructions
+;; Instructions
 ;;   1) Put this file at ~/.emacs
 ;;   2) Download and run the below "Mac for OSX" binary
-;; Meta Keys: It should just be your ALT key, but if not: https://www.emacswiki.org/emacs/MetaKeyProblems
-;; Mac (Mojave) binary used with this .emacs file
+;;
+;; Meta Key: It should just be your "option" (or ALT) key, but if not: https://www.emacswiki.org/emacs/MetaKeyProblems
+;;
+;; Mac (Mojave as of writing) binary used with this .emacs file
 ;;   https://emacsformacosx.com/emacs-builds/Emacs-26.3-universal.dmg
+;;
 ;; How to decipher eLisp
 ;;   https://github.com/alhassy/ElispCheatSheet/blob/master/CheatSheet.pdf
-;; Key bindings
+;;
+;; Key bindings cheat sheet
 ;;   https://www.gnu.org/software/emacs/refcards/pdf/refcard.pdf
-;; Essential key chords (C means "ctrl", M means "alt" [meta], "point" just means "cursor", S means "command" [super])
-;;   M-x 		run a command, supports tab completion
-;;   C-space		Begin region selection (move point to see what's selected)
-;;   C-p|n|b|f		Point navigation: [p]revious line, [n]ext line, [b]ack, [f]orwards)
-;;   C-g		Like "esc". "undo! stop doing!"
-;;   C-x 1		Sow only "this 1" (the window with the 'point')
-;;   C-x 0		Show only the "0"ther window, the window without the 'point'. (It's a zero, but you get the idea)
-;;   C-k		[k]ill to end of line.
-;;   C-a		Move point to the beginning of current line [a of "a..z"]
-;;   C-e		Move point to [e]nd of line
-;;   C-x C-f		[f]ind file (open existing or create new)
-;;   C-x b		Switch to [b]uffer, supports tab-completion
-;;   C-/		Undo
-;;   M-;		Comment (e.g. selected region. because `;` is lisp comment)
-;;   M-.		Go to definition of word at point (the identifier under your cursor)
-;;   M-,		The opposite of go-to-definition. Go back to where you came from. Can do many levels deep.
-;;   S-u		Revert buffer (to what is on disk, disgard changes. [u]ndo everything.)
-;;   M-%		Find/replace (the `%` sign looks like "change o for o")
-;;   M-w		Copy region
-;;   C-w		Cut region
-;;   C-y		Paste region ([y]ank from buffer)
-;; Exsential commands
-;;   M-x rectangle-mark-mode			Select, interact with rectangle, e.g. when inserting, deleting the same line on each row.
-;;   M-x describe-*								The help system. `describe-` and then tab key to see what you can get help for.
-;;   M-x find-replace-regex				Just what it says
-;;   M-x package-*								Search for, install packages, etc.
-;;   M-x load-file RET ~/.emacs		Re-read Emacs configuration (e.g. when you make changes)
+;;
+;; Essential key chords
+;; C means "ctrl"
+;; M means "option" (or "alt") [meta]
+;; S means "command" [super]
+;; "Point" just means "cursor"
+;; "Region" means "selected region"
+;; A space ' ' means: key stroke, release, next key stroke...
+;; RET means: supply argument, hit enter, supply next argument, hit enter again...
+;;   M-x          Run a command, supports tab completion
+;;   C-space      Begin region selection (move point to see what's selected)
+;;   C-p|n|b|f    Point navigation: [p]revious line, [n]ext line, [b]ack, [f]orwards)
+;;   C-g          Like "esc". "cancel! stop doing!"
+;;   C-x 1        Show only "this 1" (show only the window with the 'point')
+;;   C-x 0        Show only the "0"ther window (the window without the 'point'. It's a zero, but you get the idea.)
+;;   C-k          [k]ill to end of line.
+;;   C-a          Move point to the beginning of current line [a of "a..z"]
+;;   C-e          Move point to [e]nd of line
+;;   C-x C-f      [f]ind file (open existing or create new)
+;;   C-x b        Switch to [b]uffer, supports tab-completion
+;;   C-/          Undo
+;;   M-;          Comment (e.g. selected region. because `;` is lisp comment)
+;;   M-.          Go to definition of word at point (the identifier under your cursor)
+;;   M-,          The opposite of go-to-definition. Go back to where you came from. Can do many levels deep.
+;;   S-u          Revert buffer (to what is on disk, discard changes. [u]ndo everything.)
+;;   M-%          Find/replace (the `%` sign looks like "change o for o")
+;;   M-w          Copy region
+;;   C-w          Cut region
+;;   C-y          Paste region ([y]ank from buffer)
+;;   M-$          Spell check word at point. If the region is active, do it for all words in the region instead (mnemonic: correct spelling has great value$$$)
+;;
+;; Essential commands
+;;   M-x rectangle-mark-mode      Select, interact with rectangle, e.g. when inserting, deleting the same line on each row.
+;;   M-x describe-*               The help system. `describe-` and then tab key to see what you can get help for.
+;;   M-x find-replace-regex       Just what it says
+;;   M-x package-*                Search for, install packages, etc.
+;;   M-x load-file RET ~/.emacs RET  Re-read Emacs configuration (e.g. when you make changes)
+;;
 ;; Credit for recent js2 additions
 ;;   https://emacs.cafe/emacs/javascript/setup/2017/04/23/emacs-setup-javascript.html
+;;
+;; Stuff you should probably just go ahead and install
+;;   brew install ag ispell
+;;   go build golang.org/x/tools/cmd/guru  # installs at ~/go/bin/guru
+
 
 ;; BEGIN GLOBAL-STUFF
 
@@ -100,7 +120,7 @@
 (setq column-number-mode t)         ; Show column numbers
 (global-auto-revert-mode 1)         ; Update buffer when file-on-disk changes, automatically
 
-;; Answers to "confusing" stuff that emacs asks, so it doesn't need to ask
+;; Answers to "confusing" stuff that emacs asks, so it doesn't need to ask again.
 (put 'upcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 
@@ -130,7 +150,7 @@
 
 ;; BEGIN GOLANG-STUFF
 
-;; Get the user's PATH and GOPATH. Note that you want ~/go/bin in your path
+;; Get the user's $PATH and $GOPATH. Note that you want ~/go/bin in your $PATH
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)
   (exec-path-from-shell-copy-env "GOPATH"))
