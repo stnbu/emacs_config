@@ -32,10 +32,11 @@
 ;;   C-w		Cut region
 ;;   C-y		Paste region ([y]ank from buffer)
 ;; Exsential commands
-;;   M-x rectangle-mark-mode		Select, interact with rectangle, e.g. when inserting, deleting the same line on each row.
-;;   M-x describe-*			The help system. `describe-` and then tab key to see what you can get help for.
-;;   M-x find-replace-regex		Just what it says
-;;   M-x package-*			Search for, install packages, etc.
+;;   M-x rectangle-mark-mode			Select, interact with rectangle, e.g. when inserting, deleting the same line on each row.
+;;   M-x describe-*								The help system. `describe-` and then tab key to see what you can get help for.
+;;   M-x find-replace-regex				Just what it says
+;;   M-x package-*								Search for, install packages, etc.
+;;   M-x load-file RET ~/.emacs		Re-read Emacs configuration (e.g. when you make changes)
 ;; Credit for recent js2 additions
 ;;   https://emacs.cafe/emacs/javascript/setup/2017/04/23/emacs-setup-javascript.html
 
@@ -58,7 +59,8 @@
 
 (setq use-package-always-ensure t)
 
-;; It would be smarter to put package config inside of `(use-package ...)` But instead they're below in commented sections.
+;; Add packages you'd like auto-installed here (It would be smarter to put package config inside of `(use-package ...)` But instead they're below in commented sections.)
+(use-package ag)
 (use-package atom-one-dark-theme)
 (use-package auto-complete)
 (use-package company-php)
@@ -123,11 +125,12 @@
 (add-hook 'js2-mode-hook (lambda ()
                            (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
 
+(define-key js2-mode-map (kbd "C-k") #'js2r-kill)
 ;; END JS2-STUFF
 
 ;; BEGIN GOLANG-STUFF
 
-;; Get the user's PATH and GOPATH
+;; Get the user's PATH and GOPATH. Note that you want ~/go/bin in your path
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)
   (exec-path-from-shell-copy-env "GOPATH"))
