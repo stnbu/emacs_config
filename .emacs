@@ -1,7 +1,7 @@
 ; -*- mode: Lisp;-*-
 
 ;; Instructions
-;;   1) Put this file at ~/.emacs
+;;   1) Save this file as ~/.emacs #
 ;;   2) Download and run the below "Mac for OSX" binary
 ;;
 ;; Meta Key: It should just be your "option" (or ALT) key, but if not: https://www.emacswiki.org/emacs/MetaKeyProblems
@@ -55,9 +55,10 @@
 ;; Credit for recent js2 additions
 ;;   https://emacs.cafe/emacs/javascript/setup/2017/04/23/emacs-setup-javascript.html
 ;;
-;; Stuff you should probably just go ahead and install
-;;   brew install ag ispell
-;;   go build golang.org/x/tools/cmd/guru  # installs at ~/go/bin/guru
+;; Stuff you should probably just go ahead and install (but may be mode-specific.) Be sure add ~/go/bin and ~/bin to your $PATH
+;;   brew install ag ispell go
+;;   go build golang.org/x/tools/cmd/guru  # installs to ~/go/bin/guru
+;;   npm install --prefix ~/ -g tern
 
 
 ;; BEGIN GLOBAL-STUFF
@@ -165,7 +166,7 @@
 
   ;; guru settings
   (go-guru-hl-identifier-mode)                    ; highlight identifiers
-  
+
   ;; Key bindings specific to go-mode
   (local-set-key (kbd "M-.") 'godef-jump)         ; Go to definition
   (local-set-key (kbd "M-*") 'pop-tag-mark)       ; Return from whence you came
