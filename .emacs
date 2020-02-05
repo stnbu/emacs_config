@@ -1,5 +1,8 @@
 ; -*- mode: Lisp;-*-
 
+;; Emacs config file for PLA Tech Talk, Feb 5, 2020
+;; Mike Burr <mburr@cattlekrush.com>
+
 ;; Instructions
 ;;   1) Save this file as ~/.emacs # rm -i ~/.emacs && curl -o ~/.emacs https://raw.githubusercontent.com/stnbu/emacs_config/master/.emacs
 ;;   2) Download and run the below "Mac for OSX" binary
@@ -15,35 +18,39 @@
 ;; Key bindings cheat sheet
 ;;   https://www.gnu.org/software/emacs/refcards/pdf/refcard.pdf
 ;;
-;; Essential key chords
+;; Essential key chords (subjectively ordered by "usefulness")
 ;; C means "ctrl"
 ;; M means "option" (or "alt") [meta]
 ;; S means "command" [super]
 ;; "Point" just means "cursor"
-;; "Region" means "selected region"
+;; "Region" means "selected text"
 ;; A space ' ' means: key stroke, release, next key stroke...
 ;; RET means: supply argument, hit enter, supply next argument, hit enter again...
-;;   M-x          Run a command, supports tab completion
-;;   C-space      Begin region selection (move point to see what's selected)
+;;   C-x C-f      [f]ind file (open existing or create new)
 ;;   C-p|n|b|f    Point navigation: [p]revious line, [n]ext line, [b]ack, [f]orwards)
-;;   C-g          Like "esc". "cancel! stop doing!"
-;;   C-x 1        Show only "this 1" (show only the window with the 'point')
-;;   C-x 0        Show only the "0"ther window (the window without the 'point'. It's a zero, but you get the idea.)
-;;   C-k          [k]ill to end of line.
 ;;   C-a          Move point to the beginning of current line [a of "a..z"]
 ;;   C-e          Move point to [e]nd of line
-;;   C-x C-f      [f]ind file (open existing or create new)
-;;   C-x b        Switch to [b]uffer, supports tab-completion
+;;   C-x C-s      Save buffer
+;;   C-s          [s]earch starting at point (wraps)
+;;   C-r          Search in [r]everse starting at point
+;;   M-%          Find/replace (the `%` sign looks like "change o for o")
 ;;   C-/          Undo
+;;   C-g          Like "esc". "cancel! stop doing!"
+;;   C-k          [k]ill to end of line.
+;;   C-space      Begin region selection (move point to see what's selected)
+;;   C-x b        Switch to [b]uffer, supports tab-completion
 ;;   M-;          Comment (e.g. selected region. because `;` is lisp comment)
 ;;   M-.          Go to definition of word at point (the identifier under your cursor)
 ;;   M-,          The opposite of go-to-definition. Go back to where you came from. Can do many levels deep.
 ;;   S-u          Revert buffer (to what is on disk, discard changes. [u]ndo everything.)
-;;   M-%          Find/replace (the `%` sign looks like "change o for o")
+;;   C-x 1        Show only "this 1" (show only the window with the 'point')
+;;   C-x 0        Show only the "0"ther window (the window without the 'point'. It's a zero, but you get the idea.)
 ;;   M-w          Copy region
 ;;   C-w          Cut region
 ;;   C-y          Paste region ([y]ank from buffer)
 ;;   M-$          Spell check word at point. If the region is active, do it for all words in the region instead (mnemonic: correct spelling has great value$$$)
+;;   C-x k        [k]ill current buffer
+;;   M-x          Run a command, supports tab completion
 ;;
 ;; Essential commands
 ;;   M-x rectangle-mark-mode      Select, interact with rectangle, e.g. when inserting, deleting the same line on each row.
@@ -132,30 +139,30 @@
 
 ;; BEGIN JS2-STUFF
 
+(require 'js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
-
+(require 'js2-refactor)
+(require 'xref-js2)
 (add-hook 'js2-mode-hook #'js2-refactor-mode)
 (js2r-add-keybindings-with-prefix "C-c C-r")
 (define-key js2-mode-map (kbd "C-k") #'js2r-kill)
-
-;; js-mode (which js2 is based on) binds "M-." which conflicts with xref, so
-;; unbind it.
+;; js-mode (which js2 is based on) binds "M-." which conflicts with xref, so unbind it.
 (define-key js-mode-map (kbd "M-.") nil)
-
 (add-hook 'js2-mode-hook (lambda ()
                            (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
-
 (define-key js2-mode-map (kbd "C-k") #'js2r-kill)
-
+(require 'company)
+(require 'company-tern)
 (add-to-list 'company-backends 'company-tern)
 (add-hook 'js2-mode-hook (lambda ()
                            (tern-mode)
                            (company-mode)))
-
 ;; Disable completion keybindings, as we use xref-js2 instead
 (define-key tern-mode-keymap (kbd "M-.") nil)
 (define-key tern-mode-keymap (kbd "M-,") nil)
+
+(setq js2-basic-offset 2)
 
 ;; END JS2-STUFF
 
@@ -165,7 +172,6 @@
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)
   (exec-path-from-shell-copy-env "GOPATH"))
-
 ;; Define function to call when go-mode loads
 (defun my-go-mode-hook ()
   ;; (add-hook 'before-save-hook 'gofmt-before-save) ; gofmt before every save
@@ -173,10 +179,8 @@
   (if (not (string-match "go" compile-command))   ; set compile command default
       (set (make-local-variable 'compile-command)
            "go build -v && go test -v && go vet"))
-
   ;; guru settings
   (go-guru-hl-identifier-mode)                    ; highlight identifiers
-
   ;; Key bindings specific to go-mode
   (local-set-key (kbd "M-.") 'godef-jump)         ; Go to definition
   (local-set-key (kbd "M-*") 'pop-tag-mark)       ; Return from whence you came
@@ -184,7 +188,6 @@
   (local-set-key (kbd "M-P") 'recompile)          ; Redo most recent compile cmd
   (local-set-key (kbd "M-]") 'next-error)         ; Go to next error (or msg)
   (local-set-key (kbd "M-[") 'previous-error)     ; Go to previous error or msg
-
   ;; Misc go stuff
   (auto-complete-mode 1))                         ; Enable auto-complete mode
 
