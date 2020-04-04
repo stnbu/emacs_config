@@ -72,6 +72,8 @@
 
 ;; begin package-stuff
 
+(setq exec-path (append exec-path '("~/go/bin")))
+
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
@@ -168,13 +170,20 @@
 
 ;; BEGIN GOLANG-STUFF
 
+;;(setq gofmt-command "goimports")
+;;(add-hook 'before-save-hook 'gofmt-before-save)
+
 ;; Get the user's $PATH and $GOPATH. Note that you want ~/go/bin in your $PATH
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)
   (exec-path-from-shell-copy-env "GOPATH"))
 ;; Define function to call when go-mode loads
 (defun my-go-mode-hook ()
-  ;; (add-hook 'before-save-hook 'gofmt-before-save) ; gofmt before every save
+
+  (add-to-list 'load-path (concat (getenv "HOME")  "/go/src/golang.org/x/lint/misc/emacs/"))
+  (require 'golint)
+  
+  (add-hook 'before-save-hook 'gofmt-before-save) ; gofmt before every save
   (setq gofmt-command "goimports")                ; gofmt uses invokes goimports
   (if (not (string-match "go" compile-command))   ; set compile command default
       (set (make-local-variable 'compile-command)
@@ -196,7 +205,10 @@
 
 ;; Ensure the go specific autocomplete is active in go-mode.
 (with-eval-after-load 'go-mode
-   (require 'go-autocomplete))
+  (require 'go-autocomplete))
+
+;;(add-hook 'before-save-hook 'gofmt-before-save)
+
 
 ;; END GOLANG-STUFF
 
