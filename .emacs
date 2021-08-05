@@ -1,6 +1,27 @@
 ;; Lots of theft from https://github.com/rksm/emacs-rust-config
 ;; Thank you kind stranger.
 
+;; begin my-newer-stuff
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-hook 'rustic-mode-hook (lambda () (flyspell-prog-mode)))
+(add-hook 'js2-mode-hook (lambda () (flyspell-prog-mode)))
+(add-hook 'python-mode-hook (lambda () (flyspell-prog-mode)))
+(add-hook 'emacs-lisp-mode-hook (lambda () (flyspell-prog-mode)))
+;;;; The smart way to do this (which does not work because I do not know from):
+;; (defun add-hooks (function hooks)
+;;   (mapc (lambda (hook)
+;;           (add-hook hook function))
+;;         hooks))
+;; (defun my-turn-on-auto-fill ()
+;;   (setq fill-column 72)
+;;   (turn-on-auto-fill))
+;; (add-hooks
+;;  '(flyspell-prog-mode)
+;;  '(rustic-mode-hook js2-mode-hook)
+;;  )
+
+;; end my-newer-stuff
+
 ;; begin was-my-stuff
 
 (server-start)
@@ -79,7 +100,7 @@
   ;; (setq lsp-signature-auto-activate nil)
 
   ;; comment to disable rustfmt on save
-  (setq rustic-format-on-save t)
+  ;;(setq rustic-format-on-save t)  ;; how can we make this "nice"?
   (add-hook 'rustic-mode-hook 'rk/rustic-mode-hook))
 
 (defun rk/rustic-mode-hook ()
@@ -205,3 +226,6 @@
            ))))
 
 ;; begin stuff from emacs-rust-config/init.el
+
+;;(setq js2-basic-offset 2)
+(setq js-indent-level 2)
