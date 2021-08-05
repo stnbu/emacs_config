@@ -2,7 +2,6 @@
 ;; Thank you kind stranger.
 
 ;; begin my-newer-stuff
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-hook 'rustic-mode-hook (lambda () (flyspell-prog-mode)))
 (add-hook 'js2-mode-hook (lambda () (flyspell-prog-mode)))
 (add-hook 'python-mode-hook (lambda () (flyspell-prog-mode)))
@@ -229,3 +228,7 @@
 
 ;;(setq js2-basic-offset 2)
 (setq js-indent-level 2)
+
+
+;; "Hey, why doesn't this work when at the top?" --mburr
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
