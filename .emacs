@@ -1,6 +1,12 @@
 ;; Lots of theft from https://github.com/rksm/emacs-rust-config
 ;; Thank you kind stranger.
 
+;; TODO:
+;; - When org-mode, then also visual-line-mode
+
+;;(setq ispell-program-name "/usr/local/bin/hunspell")
+(setq ispell-program-name "/usr/local/bin/aspell")
+
 ;; begin my-newer-stuff
 (add-hook 'rustic-mode-hook (lambda () (flyspell-prog-mode)))
 (add-hook 'js2-mode-hook (lambda () (flyspell-prog-mode)))
@@ -43,7 +49,7 @@
   (add-hook hook (lambda () (flyspell-mode 1))))
 (flyspell-prog-mode)
 (setq org-startup-truncated nil)
-(setq ispell-program-name "/usr/local/bin/ispell") ;; iirc command name alone does not work. tbd.
+
 (set-face-attribute 'default nil :height 220)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")))
@@ -232,3 +238,8 @@
 
 ;; "Hey, why doesn't this work when at the top?" --mburr
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+;; wee
+(setq org-export-with-section-numbers nil)
+
+;; ;; AAAAAAArgGggg!
+;; (setq ispell-dictionary "~/.emacs.d/share/words")
