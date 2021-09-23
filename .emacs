@@ -239,7 +239,41 @@
 ;; "Hey, why doesn't this work when at the top?" --mburr
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 ;; wee
-(setq org-export-with-section-numbers nil)
+;;(setq org-export-with-section-numbers nil)
+
+(setq org-catch-invisible-edits "error")
 
 ;; ;; AAAAAAArgGggg!
 ;; (setq ispell-dictionary "~/.emacs.d/share/words")
+
+(defun sort-lines-nocase ()
+  (interactive)
+  (let ((sort-fold-case t))
+    (call-interactively 'sort-lines)))
+
+
+(setq org-default-notes-file "/Users/mburr/tmp/testorg/notes.org")
+
+
+
+;; ;; https://discord.com/channels/489936967895875605/489936967895875607/890632675973529650
+;; ;; You can probably get way with using an eval inside .dir-locals.el but it's not clean IMO.
+;; ;; Alternatively you'll need a hook to look for .custom.el and load it. Example:
+;; (defun load-cwd-.custom.el ()
+;;   "If exists, load a file called \".custom.el\" from the current
+;;   working directory."
+;;   (when (file-exists-p ".custom.el")
+;;     (load-file ".custom.el")))
+;; (require 'projectile)
+;; (defun load-.custom.el ()
+;;   "Try to load \".custom.el\" from the current working directory,
+;;   if that fails try looking for it at the project's root
+;;   instead."
+;;   (if (load-cwd-.custom.el)
+;;       (message "Loaded .custom.el from current directory." (pwd))
+;;     (when (projectile-project-p)
+;;       (let ((default-directory default-directory))
+;;     (cd (projectile-project-root))
+;;     (load-cwd-.custom.el)
+;;     (message "Loaded .custom.el from project directory.")))))
+;; (add-hook 'find-file-hook #'load-.custom.el)
