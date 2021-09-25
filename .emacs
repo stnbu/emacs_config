@@ -11,7 +11,10 @@
 
 (setq ispell-program-name "/usr/local/bin/aspell")
 
-(add-hook 'org-mode-hook (lambda () (visual-line-mode)))
+(add-hook 'org-mode-hook (lambda ()
+			   (visual-line-mode)
+			   (org-sidebar-tree)
+			   ))
 
 (defun add-hooks (function hooks)
   (mapc (lambda (hook)
