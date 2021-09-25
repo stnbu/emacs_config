@@ -2,6 +2,12 @@
 (column-number-mode)
 (global-auto-revert-mode 1)
 (add-hook 'dired-mode-hook 'auto-revert-mode)
+(setq custom-file "~/.emacs.d/custom.el")
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")))
+(require 'package)
+(package-initialize)
+;;(add-to-list 'package-archives '("tromey" . "http://tromey.com/elpa/"))
 
 (setq ispell-program-name "/usr/local/bin/aspell")
 
@@ -23,50 +29,25 @@
    )
  )
 
-
-;;(setq ring-bell-function 'ignore) ;; if you disllike the below "subtl" bell.
-;; https://www.emacswiki.org/emacs/AlarmBell - "Subtly flash the modeline"
-(setq ring-bell-function
-      (lambda ()
-        (let ((orig-fg (face-foreground 'mode-line)))
-          (set-face-foreground 'mode-line "#F2804F")
-          (run-with-idle-timer 0.1 nil
-                               (lambda (fg) (set-face-foreground 'mode-line fg))
-                               orig-fg))))
+;; (setq ring-bell-function
+;;       (lambda ()
+;;         (let ((orig-fg (face-foreground 'mode-line)))
+;;           (set-face-foreground 'mode-line "#F2804F")
+;;           (run-with-idle-timer 0.1 nil
+;;                                (lambda (fg) (set-face-foreground 'mode-line fg))
+;;                                orig-fg))))
 
 (dolist (hook '(text-mode-hook))
   (add-hook hook (lambda () (flyspell-mode 1))))
-;; (setq org-startup-truncated nil)??
 
 (set-face-attribute 'default nil :height 220)
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")))
-(custom-set-variables
- '(package-selected-packages
-   '(js2-mode magit rust-mode rustic go-complete company go-mode ##)))
-(custom-set-faces
- )
-;; Things that emacs lets you "try once, enable, ..." (these are enabled "forever and stfu")
+;; Stuff that you will be prompted about:
 (put 'downcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 
-;; end was-my-stuff
-
-;; begin stuff from emacs-rust-config/bootstrap.el
-
-(setq user-init-file (or load-file-name (buffer-file-name)))
-(setq user-emacs-directory (file-name-directory user-init-file))
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-
-(require 'package)
-(add-to-list 'package-archives '("tromey" . "http://tromey.com/elpa/"))
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-(setq package-user-dir (expand-file-name "elpa/" user-emacs-directory))
-(package-initialize)
-
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
+;; (unless (package-installed-p 'use-package)
+;;   (package-refresh-contents)
+;;   (package-install 'use-package))
 
 ;; end stuff from emacs-rust-config/bootstrap.el
 
@@ -239,10 +220,7 @@
   (let ((sort-fold-case t))
     (call-interactively 'sort-lines)))
 
-
-(setq org-default-notes-file "/Users/mburr/tmp/testorg/notes.org")
-
-
+(setq org-default-notes-file "~/tmp/testorg/notes.org") ;; testing test
 
 ;; ;; https://discord.com/channels/489936967895875605/489936967895875607/890632675973529650
 ;; ;; You can probably get way with using an eval inside .dir-locals.el but it's not clean IMO.
