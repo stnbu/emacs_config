@@ -12,6 +12,8 @@
 (add-hook 'js2-mode-hook (lambda () (flyspell-prog-mode)))
 (add-hook 'python-mode-hook (lambda () (flyspell-prog-mode)))
 (add-hook 'emacs-lisp-mode-hook (lambda () (flyspell-prog-mode)))
+(add-hook 'org-mode-hook (lambda () (visual-line-mode)))
+
 ;;;; The smart way to do this (which does not work because I do not know from):
 ;; (defun add-hooks (function hooks)
 ;;   (mapc (lambda (hook)
