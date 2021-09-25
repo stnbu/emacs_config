@@ -1,41 +1,28 @@
-;; Lots of theft from https://github.com/rksm/emacs-rust-config
-;; Thank you kind stranger.
-
-;; TODO:
-;; - When org-mode, then also visual-line-mode
-
-;;(setq ispell-program-name "/usr/local/bin/hunspell")
-(setq ispell-program-name "/usr/local/bin/aspell")
-
-;; begin my-newer-stuff
-(add-hook 'rustic-mode-hook (lambda () (flyspell-prog-mode)))
-(add-hook 'js2-mode-hook (lambda () (flyspell-prog-mode)))
-(add-hook 'python-mode-hook (lambda () (flyspell-prog-mode)))
-(add-hook 'emacs-lisp-mode-hook (lambda () (flyspell-prog-mode)))
-(add-hook 'org-mode-hook (lambda () (visual-line-mode)))
-
-;;;; The smart way to do this (which does not work because I do not know from):
-;; (defun add-hooks (function hooks)
-;;   (mapc (lambda (hook)
-;;           (add-hook hook function))
-;;         hooks))
-;; (defun my-turn-on-auto-fill ()
-;;   (setq fill-column 72)
-;;   (turn-on-auto-fill))
-;; (add-hooks
-;;  '(flyspell-prog-mode)
-;;  '(rustic-mode-hook js2-mode-hook)
-;;  )
-
-;; end my-newer-stuff
-
-;; begin was-my-stuff
-
 (server-start)
-
 (column-number-mode)
 (global-auto-revert-mode 1)
 (add-hook 'dired-mode-hook 'auto-revert-mode)
+
+(setq ispell-program-name "/usr/local/bin/aspell")
+
+(add-hook 'org-mode-hook (lambda () (visual-line-mode)))
+
+(defun add-hooks (function hooks)
+  (mapc (lambda (hook)
+          (add-hook hook function))
+        hooks))
+(defun mburr/prog-mode-common ()
+  (flyspell-prog-mode)
+  (python-mode-hook)
+  (emacs-lisp-mode-hook))
+(add-hooks
+ '(mburr/prog-mode-common)
+ '(
+   rustic-mode-hook
+   js2-mode-hook
+   )
+ )
+
 
 ;;(setq ring-bell-function 'ignore) ;; if you disllike the below "subtl" bell.
 ;; https://www.emacswiki.org/emacs/AlarmBell - "Subtly flash the modeline"
@@ -49,8 +36,7 @@
 
 (dolist (hook '(text-mode-hook))
   (add-hook hook (lambda () (flyspell-mode 1))))
-(flyspell-prog-mode)
-(setq org-startup-truncated nil)
+;; (setq org-startup-truncated nil)??
 
 (set-face-attribute 'default nil :height 220)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
