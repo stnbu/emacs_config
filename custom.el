@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(org-sidebar yasnippet use-package toml-mode rustic lsp-ui flycheck exec-path-from-shell company)))
+   '(yasnippet use-package toml-mode rustic org-sidebar lsp-ui flycheck exec-path-from-shell company)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

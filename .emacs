@@ -1,12 +1,39 @@
+
+;; * Hey, you could write a whole book about a programming thing entirely in org:
+;;   - Every block recognized as "language foo" gets sent to the compiler "in order"
+;;   - What the heck does "in order" mean? Well, that's the thing. Work it out.
+;;   - What about say "resources" (files) referred to in the code, e.g. ~open("./file")..?
+;;   - Maybe org takes care of that magically? Org's job is to output a directory tree
+;;     with the right structure and run a single command. That's what it do.
+;; * This might be a very smart way to write a program!!!!!!!!!
+
+;; WANTED:
+;; * It seems "weird" that the regular help window, doesn't close with C-g .. should it?
+;; * We want a single place to put one or more commands on-save. First: ~delete-trailing-whitespace~ !
+;; * The log command thing. Should log to file to figure out which thing you do a lot and make easier (key bindings etc)
+;; * How to highlight `@@comment:whatev@@` in org-mode?
+;; * A neat, hierarchical major-mode handling thing
+;;   - We can say "org-mode has a superset config of text-mode" etc; a kind of inheritance
+;;   - How can I implement my own "minor mode"? WTF /is/ a MMode?
+;; * Right click:
+;;   - Custom context menu stuff.
+;;   - Single mouse click and: wrap `[A-Za-z-]+` in a `@makro{}` (or whatever)
+;; * Windows [figure them out]:
+;;   - How can I have `emacsclient -n` use a particular window?
+;;   - How can I open close the LHS org-sidebar menu?
+;;   - Why is org-sidebar so "different" from other windows?
+;;      - For example, seems to be immune to `C-x 1`
+;; * Would be nice to view help/info/desc of package that is not (yet) intalled.
+;; * Keystroke to toggle flyspell? Or just forget flyspell?
+
 (server-start)
 (column-number-mode)
 (global-auto-revert-mode 1)
-;;(add-hook 'dired-mode-hook 'auto-revert-mode)
 (setq custom-file "~/.emacs.d/custom.el")
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")))
-(require 'package)
-(package-initialize)
+(require 'package)   ;; why do we need this? do we?
+(package-initialize) ;; why do we need this? do we?
 
 (setq ispell-program-name "aspell")
 
