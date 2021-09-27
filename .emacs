@@ -1,15 +1,14 @@
 (server-start)
 (column-number-mode)
 (global-auto-revert-mode 1)
-(add-hook 'dired-mode-hook 'auto-revert-mode)
+;;(add-hook 'dired-mode-hook 'auto-revert-mode)
 (setq custom-file "~/.emacs.d/custom.el")
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")))
 (require 'package)
 (package-initialize)
-;;(add-to-list 'package-archives '("tromey" . "http://tromey.com/elpa/"))
 
-(setq ispell-program-name "/usr/local/bin/aspell")
+(setq ispell-program-name "aspell")
 
 (add-hook 'org-mode-hook (lambda ()
 			   (visual-line-mode)
