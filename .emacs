@@ -25,13 +25,16 @@
 ;;      - For example, seems to be immune to `C-x 1`
 ;; * Would be nice to view help/info/desc of package that is not (yet) intalled.
 ;; * Keystroke to toggle flyspell? Or just forget flyspell?
+;; * Have "when in mode X use major minor mode Y"
+;;    (add-hook 'my-mode-hook 'my-minor-mode)
 
 (server-start)
 (column-number-mode)
 (global-auto-revert-mode 1)
 (setq custom-file "~/.emacs.d/custom.el")
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")))
+                         ("melpa" . "https://melpa.org/packages/")
+			 ))
 (require 'package)   ;; why do we need this? do we?
 (package-initialize) ;; why do we need this? do we?
 
@@ -46,6 +49,7 @@
   (mapc (lambda (hook)
           (add-hook hook function))
         hooks))
+
 (defun mburr/prog-mode-common ()
   (flyspell-prog-mode)
   (python-mode-hook)
