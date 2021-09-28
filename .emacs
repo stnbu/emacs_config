@@ -28,6 +28,7 @@
 ;; * Have "when in mode X use major minor mode Y"
 ;;    (add-hook 'my-mode-hook 'my-minor-mode)
 
+(savehist-mode)
 (server-start)
 (column-number-mode)
 (global-auto-revert-mode 1)
