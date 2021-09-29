@@ -28,6 +28,26 @@
 ;; * Have "when in mode X use major minor mode Y"
 ;;    (add-hook 'my-mode-hook 'my-minor-mode)
 
+;; delete-trailing-whitespace~ !
+;; * The log command thing. Should log to file to figure out which thing you do a lot and make easier (key bindings etc)
+;; * How to highlight `@@comment:whatev@@` in org-mode?
+;; * A neat, hierarchical major-mode handling thing
+;;   - We can say "org-mode has a superset config of text-mode" etc; a kind of inheritance
+;;   - How can I implement my own "minor mode"? WTF /is/ a MMode?
+;; * Right click:
+;;   - Custom context menu stuff.
+;;   - Single mouse click and: wrap `[A-Za-z-]+` in a `@makro{}` (or whatever)
+;; * Windows [figure them out]:
+;;   - How can I have `emacsclient -n` use a particular window?
+;;   - How can I open close the LHS org-sidebar menu?
+;;   - Why is org-sidebar so "different" from other windows?
+;;      - For example, seems to be immune to `C-x 1`
+;; * Would be nice to view help/info/desc of package that is not (yet) intalled.
+;; * Keystroke to toggle flyspell? Or just forget flyspell?
+;; * Have "when in mode X use major minor mode Y"
+;;    (add-hook 'my-mode-hook 'my-minor-mode)
+
+;;(setq savehist-file "~/.emacs.d/history")
 (savehist-mode)
 (server-start)
 (column-number-mode)
