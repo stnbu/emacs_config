@@ -1,4 +1,4 @@
-
+(setq visible-bell 1)
 ;; * Hey, you could write a whole book about a programming thing entirely in org:
 ;;   - Every block recognized as "language foo" gets sent to the compiler "in order"
 ;;   - What the heck does "in order" mean? Well, that's the thing. Work it out.
@@ -8,6 +8,15 @@
 ;; * This might be a very smart way to write a program!!!!!!!!!
 
 ;; WANTED:
+;; * Bug: I don't get flyspell enabled *right here* by default (elisp comments).
+;; * Possibly interesting org-roam considerations:
+;;   - If I'm forced to use three laptops, how do I synchronize?
+;;   - How can these "second brains" be connected to one-another?
+;; * How does org-roam deal with case and/or matching nodes. What if I have the words swapped, etc.
+;; * How to do a thing asyncronously? Like: on save, do expensive thing that takes five seconds in the background!
+;; * Spelling
+;;   - All new buffers get flyspell disabled. Have a simple key to toggle.
+;;   - Histogram!!
 ;; * It seems "weird" that the regular help window, doesn't close with C-g .. should it?
 ;; * We want a single place to put one or more commands on-save. First: ~delete-trailing-whitespace~ !
 ;; * The log command thing. Should log to file to figure out which thing you do a lot and make easier (key bindings etc)
@@ -47,24 +56,52 @@
 ;; * Have "when in mode X use major minor mode Y"
 ;;    (add-hook 'my-mode-hook 'my-minor-mode)
 
-;;(setq savehist-file "~/.emacs.d/history")
 (savehist-mode)
 (server-start)
 (column-number-mode)
+(setq vc-follow-symlinks t)
 (global-auto-revert-mode 1)
 (setq custom-file "~/.emacs.d/custom.el")
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")
-			 ))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
+(defun ipdb_set_trace ()
+  (insert "import ipdb; ipdb.set_trace()")
+)
+
+;; Warning (:warning): You have 'mode-require-final-newline'
+;; turned on. ethan-wspace supersedes 'require-final-newline', so
+;; 'mode-require-final-newline' will be turned off.
+;;
+;; You can disable this warning by customizing the variable
+;; 'mode-require-final-newline' to be NIL.
+;; Warning (:warning): You have
+;; 'require-final-newline' turned on.  ethan-wspace supersedes
+;; 'require-final-newline', and so 'require-final-newline' will be
+;; turned off.  If you turned on 'require-final-newline' in your
+;; customizations, you can disable this warning by removing these
+;; customizations.  Otherwise, please file a bug report, as some
+;; other code has turned on 'require-final-newline'.
+(setq mode-require-final-newline nil)
+
 (require 'package)   ;; why do we need this? do we?
 (package-initialize) ;; why do we need this? do we?
 
+;; erc stuff from systemcrafters.cc
+(setq erc-server "irc.libera.chat"
+      erc-nick "captainmidday"
+      erc-user-full-name "Mike Burr"
+      erc-track-shorten-start 8
+      erc-autojoin-channels-alist '(("irc.libera.chat"))
+      erc-kill-buffer-on-part t
+            erc-auto-query 'bury) ;; do I want bury?
+
 (setq ispell-program-name "aspell")
 
-(add-hook 'org-mode-hook (lambda ()
-			   (visual-line-mode)
-			   (org-sidebar-tree)
-			   ))
+;; ;; This collides /hard/ with org-roam TBD
+;; (add-hook 'org-mode-hook (lambda ()
+;; 			   (visual-line-mode)
+;; 			   (org-sidebar-tree)
+;; 			   ))
 
 (defun add-hooks (function hooks)
   (mapc (lambda (hook)
@@ -105,6 +142,23 @@
 
 ;; end stuff from emacs-rust-config/bootstrap.el
 
+;; org roam
+(use-package org-roam
+  :ensure t
+  :init
+  (setq org-roam-v2-ack t)
+  :custom
+  (org-roam-directory "~/RoamNotes")
+  (org-roam-completion-everywhere t)
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert)
+         :map org-mode-map
+         ("C-M-i"    . completion-at-point))
+  :config
+  (org-roam-setup))
+;; end roam
+
 ;; begin stuff from emacs-rust-config/init.el
 
 (use-package rustic
@@ -128,7 +182,7 @@
   ;; (setq lsp-signature-auto-activate nil)
 
   ;; comment to disable rustfmt on save
-  ;;(setq rustic-format-on-save t)  ;; how can we make this "nice"?
+  (setq rustic-format-on-save t)
   (add-hook 'rustic-mode-hook 'rk/rustic-mode-hook))
 
 (defun rk/rustic-mode-hook ()
@@ -297,3 +351,5 @@
 ;;     (load-cwd-.custom.el)
 ;;     (message "Loaded .custom.el from project directory.")))))
 ;; (add-hook 'find-file-hook #'load-.custom.el)
+
+

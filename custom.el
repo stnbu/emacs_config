@@ -3,12 +3,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(auto-revert-avoid-polling t)
- '(delete-selection-mode t)
- '(doc-view-continuous t)
- '(mode-require-final-newline nil)
  '(package-selected-packages
-   '(yasnippet use-package toml-mode rustic org-sidebar lsp-ui flycheck exec-path-from-shell company)))
+   '(rust-playground yasnippet yaml-mode use-package toml-mode solidity-mode rustic pyvenv org-sidebar org-roam magit lsp-ui highlight-indentation flycheck exec-path-from-shell ethan-wspace company))
+ '(rust-playground-run-command "cargo run --color=never"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
