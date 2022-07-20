@@ -353,3 +353,8 @@
 ;; (add-hook 'find-file-hook #'load-.custom.el)
 
 
+(setq rustic-rustfmt-args "--edition=2021")
+
+;; https://emacs.stackexchange.com/questions/61386/package-refresh-hangs
+(custom-set-variables
+ '(gnutls-algorithm-priority "normal:-vers-tls1.3"))

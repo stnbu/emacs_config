@@ -3,9 +3,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(gnutls-algorithm-priority "normal:-vers-tls1.3")
  '(package-selected-packages
-   '(rust-playground yasnippet yaml-mode use-package toml-mode solidity-mode rustic pyvenv org-sidebar org-roam magit lsp-ui highlight-indentation flycheck exec-path-from-shell ethan-wspace company))
- '(rust-playground-run-command "cargo run --color=never"))
+   '(yasnippet yaml-mode use-package toml-mode solidity-mode rustic rust-playground pyvenv org-sidebar org-roam magit lsp-ui highlight-indentation flycheck exec-path-from-shell ethan-wspace company)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
